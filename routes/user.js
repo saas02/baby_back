@@ -21,7 +21,6 @@ const usuariosPath = "/";
 router.get(usuariosPath,  usersGet );
 
 router.get(usuariosPath+":id", [    
-    check('id', 'No es un Id valido').isMongoId(),
     validarCampos    
 ], userGet );
 

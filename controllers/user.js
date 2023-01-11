@@ -27,8 +27,11 @@ const usersGet = async (req = request, res = response) => {
 const userGet = async (req = request, res = response) => {
 
     const { id } = req.params;
-
-    user = await User.findById( id );  
+    if(id === "generic"){
+        user = await User.findOne( { generic : true } );  
+    }else{
+        user = await User.findById( id );      
+    }
 
     res.json({
         msg: " get API Controller",
