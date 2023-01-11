@@ -5,6 +5,7 @@ const { validarCampos, validarJwt } = require('../middlewares');
 const { existeUsuarioId } = require("../helpers/db-validators");
 
 const { 
+    userGet,
     usersGet, 
     usersPost, 
     usersPut, 
@@ -18,6 +19,11 @@ const router = Router();
 const usuariosPath = "/";
 
 router.get(usuariosPath,  usersGet );
+
+router.get(usuariosPath+":id", [    
+    check('id', 'No es un Id valido').isMongoId(),
+    validarCampos    
+], userGet );
 
 /** El segundo parametro es un middleware que va a validar lo que necesitemos */
 router.post(usuariosPath, [ 

@@ -24,6 +24,18 @@ const usersGet = async (req = request, res = response) => {
     })
 }
 
+const userGet = async (req = request, res = response) => {
+
+    const { id } = req.params;
+
+    user = await User.findById( id );  
+
+    res.json({
+        msg: " get API Controller",
+        user
+    })
+}
+
 const usersPost = async (req, res = response) => {
 
     const data = req.body;
@@ -67,6 +79,7 @@ const usersDelete = async (req, res = response) => {
 
 module.exports = {
     usersGet,
+    userGet,
     usersPost,
     usersPut,
     usersDelete
