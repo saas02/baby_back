@@ -27,11 +27,17 @@ const usersGet = async (req = request, res = response) => {
 const userGet = async (req = request, res = response) => {
 
     const { id } = req.params;
-    if(id === "generic"){
-        user = await User.findOne( { generic : true } );  
-    }else{
-        user = await User.findById( id );      
+    
+    try {
+        if(id === "generic"){
+            user = await User.findOne( { generic : true } );  
+        }else{
+            user = await User.findById( id );      
+        }
+    } catch (error) {
+        user = [];
     }
+    
 
     res.json({
         msg: " get API Controller",
