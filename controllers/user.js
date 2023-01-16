@@ -5,8 +5,7 @@ const User = require("./../models/user");
 
 const usersGet = async (req = request, res = response) => {
 
-    const { limite = 5, desde = 0 } = req.query;
-    const query = { status: true };
+    const { limite = 5, desde = 0, ...query } = req.query;
 
     const [total, users] = await Promise.all([
         /** Se coloca el await para esperar la salida de las dos query */
@@ -15,7 +14,6 @@ const usersGet = async (req = request, res = response) => {
             .skip(Number(desde))
             .limit(Number(limite))
     ]);
-
 
     res.json({
         msg: " get API Controller",
