@@ -8,7 +8,8 @@ const {
     userGet,
     usersGet, 
     usersPost, 
-    usersPut, 
+    usersPut,
+    usersAllPatch, 
     usersDelete
 } = require("../controllers/user");
 
@@ -34,6 +35,9 @@ router.post(usuariosPath, [
     validarCampos
 ] , usersPost );
 
+router.patch(usuariosPath,  [
+    validarJwt        
+],usersAllPatch );
 
 router.put(usuariosPath+":id",  [
     validarJwt,

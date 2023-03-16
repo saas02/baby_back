@@ -25,17 +25,17 @@ const usersGet = async (req = request, res = response) => {
 const userGet = async (req = request, res = response) => {
 
     const { id } = req.params;
-    
+
     try {
-        if(id === "generic"){
-            user = await User.findOne( { generic : true } );  
-        }else{
-            user = await User.findById( id );      
+        if (id === "generic") {
+            user = await User.findOne({ generic: true });
+        } else {
+            user = await User.findById(id);
         }
     } catch (error) {
         user = [];
     }
-    
+
 
     res.json({
         msg: " get API Controller",
@@ -71,6 +71,24 @@ const usersPut = async (req, res = response) => {
     })
 }
 
+const usersAllPatch = async (req, res = response) => {
+
+    const { ...data } = req.body;
+    
+    const usuarios = await User.updateMany(
+        {            
+            "date": { "$exists": true }
+        },
+        { $set: data }
+    )
+
+    res.json({
+        msg: "patch Update API Controller....",
+        data,
+        usuarios
+    })
+}
+
 const usersDelete = async (req, res = response) => {
 
     const { id } = req.params;
@@ -89,5 +107,6 @@ module.exports = {
     userGet,
     usersPost,
     usersPut,
+    usersAllPatch,
     usersDelete
 }
